@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
@@ -27,9 +26,8 @@ import java.util.Map;
 
 import bitp3453.b032110463.spms_mobile.Fragment.SweetAlert;
 import bitp3453.b032110463.spms_mobile.Model.JWT;
-import bitp3453.b032110463.spms_mobile.Model.SPMSRequest;
+import bitp3453.b032110463.spms_mobile.Classes.SPMSRequest;
 import bitp3453.b032110463.spms_mobile.databinding.ActivityLoginBinding;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Login extends AppCompatActivity {
 

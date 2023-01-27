@@ -1,4 +1,4 @@
-package bitp3453.b032110463.spms_mobile.Model;
+package bitp3453.b032110463.spms_mobile.Classes;
 
 import androidx.annotation.Nullable;
 
@@ -11,12 +11,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import bitp3453.b032110463.spms_mobile.Model.JWT;
+
 public class SPMSRequest extends StringRequest {
     public static String serverUrl = "http://192.168.8.102:5000/api/";
     private JWT jwt;
 
     public SPMSRequest(JWT jwt,int method, String url, Response.Listener<String> listener, @Nullable Response.ErrorListener errorListener) {
-        super(method, url, listener, errorListener);
+        super(method, serverUrl + url, listener, errorListener);
         this.jwt = jwt;
     }
 
