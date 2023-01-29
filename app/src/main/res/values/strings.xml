@@ -5,5 +5,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_menu_home">Home</string>
-    <string name="nav_menu_Assessment">Assessment</string>
+    <string name="nav_menu_Assessemt">Assessment</string>
+    <string name="nav_menu_Upcoming">Upcoming</string>
+    <string name="nav_menu_Past">Past</string>
+    <string name="nav_menu_Ongoing">Ongoing</string>
+    <string name="nav_menu_logout">Log Out</string>
 </resources>

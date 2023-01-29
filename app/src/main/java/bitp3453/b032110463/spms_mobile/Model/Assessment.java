@@ -1,9 +1,19 @@
 package bitp3453.b032110463.spms_mobile.Model;
 
+import android.util.Log;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Assessment implements Serializable {
     private int assessmentId;
@@ -12,8 +22,12 @@ public class Assessment implements Serializable {
     private String open;
     private String close;
     private int duration;
-    private String subject;
+    private String subject;//code
+
+    private String subjectTitle;
     private JSONObject grading;
+    private DateTime dtOpen;
+    private DateTime dtClose;
 
     public Assessment(){
 
@@ -32,10 +46,10 @@ public class Assessment implements Serializable {
             description = jsonObj.getString("description");
         }
         if(jsonObj.has("open")){
-            open = jsonObj.getString("open");
+            setOpen(jsonObj.getString("open"));
         }
         if(jsonObj.has("close")){
-            close = jsonObj.getString("close");
+            setClose(jsonObj.getString("close"));
         }
         if(jsonObj.has("duration")){
             duration = jsonObj.getInt("duration");
@@ -43,9 +57,14 @@ public class Assessment implements Serializable {
         if(jsonObj.has("subject")){
             setSubject(jsonObj.getString("subject"));
         }
-        if(jsonObj.has("grading") && !jsonObj.isNull("grading")){
-            setGrading(jsonObj.getJSONObject("grading"));
+        if(jsonObj.has("subjTitle")){
+            setSubjectTitle(jsonObj.getString("subjTitle"));
         }
+//      should do but later kot, taknak ada exception kat constructor kinda hard to use
+//        if(jsonObj.has("grading") && !jsonObj.isNull("grading")){
+//            String unwrappedJSON = new ObjectMapper().readValue(jsonObj.getString("grading"), String.class);
+//            setGrading( new JSONObject(jsonObj.getString("grading"))   );
+//        }
     }
 
     public int getAssessmentId() {
@@ -77,6 +96,7 @@ public class Assessment implements Serializable {
     }
 
     public void setOpen(String open) {
+        dtOpen = new DateTime(open);
         this.open = open;
     }
 
@@ -85,6 +105,7 @@ public class Assessment implements Serializable {
     }
 
     public void setClose(String close) {
+        dtClose =  new DateTime(close);
         this.close = close;
     }
 
@@ -113,4 +134,20 @@ public class Assessment implements Serializable {
             this.grading = grading;
         }
     }
+
+    public DateTime getOpenDT(){
+        return dtOpen;
+    }
+    public DateTime getCloseDT(){
+        return dtClose;
+    }
+
+    public String getSubjectTitle() {
+        return subjectTitle;
+    }
+
+    public void setSubjectTitle(String subjectTitle) {
+        this.subjectTitle = subjectTitle;
+    }
+
 }

@@ -28,5 +28,21 @@ public class SweetAlert extends Fragment {
                 .setContentText(message)
                 .show();
     }
+    public void confirm(String title, String message , SweetAlertDialog.OnSweetClickListener action){
+        new SweetAlertDialog(this.getActivity(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(title)
+                .setContentText(message)
+                .setCancelText("Yes")
+                .setConfirmText("No")
+                .showCancelButton(true)
+                .setCancelClickListener(action) // reverse sbb somehow kiri die cancel button
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.cancel();
+                    }
+                })
+                .show();
+    }
 
 }

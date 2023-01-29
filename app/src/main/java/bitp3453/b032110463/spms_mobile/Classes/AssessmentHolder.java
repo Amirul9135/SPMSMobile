@@ -8,6 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import bitp3453.b032110463.spms_mobile.Model.Assessment;
 import bitp3453.b032110463.spms_mobile.R;
 import bitp3453.b032110463.spms_mobile.databinding.VhAssessmentBinding;
@@ -25,6 +28,11 @@ public class AssessmentHolder extends RecyclerView.ViewHolder {
 
     public void setAssessment(Assessment assessment){
         Log.d("SINNI","S" + assessment.getTitle());
-        binding.vhAsTxt1.setText(assessment.getTitle());
+        binding.vhasTitle.setText(assessment.getTitle());
+        binding.vhasSubj.setText( "[" + assessment.getSubject() + "] " + assessment.getSubjectTitle()  );
+        binding.vhasOpenD.setText(assessment.getOpenDT().toString("dd/MM/YYYY"));
+        binding.vhasCloseD.setText(assessment.getCloseDT().toString("dd/MM/YYYY"));
+        binding.vhasOpenT.setText(assessment.getOpenDT().toString("hh:mm aa"));
+        binding.vhasCloseT.setText(assessment.getCloseDT().toString("hh:mm aa"));
     }
 }

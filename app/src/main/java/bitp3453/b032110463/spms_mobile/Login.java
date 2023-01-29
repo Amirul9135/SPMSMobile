@@ -2,6 +2,8 @@ package bitp3453.b032110463.spms_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +22,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 
+import bitp3453.b032110463.spms_mobile.Classes.LoadingOverlay;
 import bitp3453.b032110463.spms_mobile.Fragment.SweetAlert;
 import bitp3453.b032110463.spms_mobile.Model.JWT;
 import bitp3453.b032110463.spms_mobile.Classes.SPMSRequest;
@@ -54,6 +59,72 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            String masterKey = null;
+            masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+            EncryptedSharedPreferences encpref = (EncryptedSharedPreferences) EncryptedSharedPreferences.create(
+                    "token",
+                    masterKey,
+                    getApplicationContext(),
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+            JWT ext = new JWT();//existing token
+            ext.setToken( encpref.getString("token",""));
+            ext.setJwtPayload( encpref.getString("payload",""));
+            ext.setJwtToken( encpref.getString("jwtToken",""));
+            ext.setUserId( encpref.getString("uid",""));
+            if(!ext.getToken().isEmpty() && !ext.getJwtPayload().isEmpty() && !ext.getJwtToken().isEmpty() && !ext.getUserId().isEmpty()){
+                verify(ext);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void verify(JWT token){
+        Log.d("ver","verify s");
+        LoadingOverlay loader = new LoadingOverlay(this);
+        loader.show();
+        SPMSRequest verification = new SPMSRequest(token, Request.Method.GET, "account/verify", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Verification","succ");
+                Intent intent = new Intent(getApplication(),MainActivity.class);
+                intent.putExtra("token",token);
+                loader.dismiss();
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Verification","failed");
+                try {
+                    //fail clear token
+                    String masterKey = null;
+                    masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+                    EncryptedSharedPreferences encpref = (EncryptedSharedPreferences) EncryptedSharedPreferences.create(
+                            "token",
+                            masterKey,
+                            getApplicationContext(),
+                            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                    );
+                    encpref.edit().remove("token").apply();
+                    encpref.edit().remove("payload").apply();
+                    encpref.edit().remove("jwtToken").apply();
+                    encpref.edit().remove("uid").apply();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                loader.dismiss();
+            }
+        });
+        requestQueue.add(verification);
+    }
 
     private void getToken(String accId, String password){
         JWT jwt = new JWT();
@@ -66,11 +137,14 @@ public class Login extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        LoadingOverlay loader = new LoadingOverlay(this);
+        loader.show();
         StringRequest jsonReq = new StringRequest(Request.Method.POST, SPMSRequest.serverUrl + "account/login" ,
                 null,
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        loader.dismiss();
                         Log.d("Error respon",error.toString());
                         String content = "";
                         try {
@@ -109,8 +183,29 @@ public class Login extends AppCompatActivity {
                 jwt.setToken(token);
                 jwt.setJwtPayload(jwtp);
                 jwt.setJwtToken(jwtt);
+
+                //save token to shared pref for persistent login
+                try {
+                    String masterKey = null;
+                    masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+                    EncryptedSharedPreferences encpref = (EncryptedSharedPreferences) EncryptedSharedPreferences.create(
+                            "token",
+                            masterKey,
+                            getApplicationContext(),
+                            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                    );
+                    encpref.edit().putString("token",jwt.getToken()).apply();
+                    encpref.edit().putString("payload",jwt.getJwtPayload()).apply();
+                    encpref.edit().putString("jwtToken",jwt.getJwtToken()).apply();
+                    encpref.edit().putString("uid",jwt.getUserId()).apply();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent(getApplication(),MainActivity.class);
                 intent.putExtra("token",jwt);
+                loader.dismiss();
                 startActivity(intent);
                 return super.parseNetworkResponse(response);
             }

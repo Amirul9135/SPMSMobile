@@ -22,12 +22,11 @@
             android:layout_height="match_parent" >
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView3"
-                android:name="bitp3453.b032110463.spms_mobile.Fragment.Home"
+                android:id="@+id/mainContent"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                tools:layout="@layout/fragment_home"/>
+                tools:layout="@layout/fragment_assessment_list"/>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/frgSwal"

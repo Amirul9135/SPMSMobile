@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "bitp3453.b032110463.spms_mobile"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -39,6 +39,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    //additional
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+    implementation "androidx.security:security-crypto:1.0.0-alpha02"
+    implementation 'joda-time:joda-time:2.12.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
 }
