@@ -2,7 +2,6 @@ package bitp3453.b032110463.spms_mobile.Model;
 
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.joda.time.DateTime;
 import org.json.JSONException;
