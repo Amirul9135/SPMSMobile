@@ -1,5 +1,6 @@
 package bitp3453.b032110463.spms_mobile.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,8 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Vector;
 
+import bitp3453.b032110463.spms_mobile.AssessmentAttempt;
 import bitp3453.b032110463.spms_mobile.Classes.AssessmentAdapter;
 import bitp3453.b032110463.spms_mobile.Classes.AssessmentClick;
 import bitp3453.b032110463.spms_mobile.Classes.LoadingOverlay;
@@ -57,7 +60,7 @@ public class AssessmentList extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         jwt = ((SPMSActivity)getActivity()).getToken();
         Log.d("token frag",">>"+jwt.getToken());
-        SPMSRequest req = new SPMSRequest(jwt, Request.Method.GET, "assessment/?status="+ statusName[statusCode] , new Response.Listener<String>() {
+        SPMSRequest req = new SPMSRequest(jwt, Request.Method.GET, "api/assessment/?status="+ statusName[statusCode] , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -93,10 +96,11 @@ public class AssessmentList extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAssessmentListBinding.inflate(inflater,container,false);
         assessments = new Vector<>();
-        if(statusCode == 1){//ber action
+        if(statusCode == 1){//ongoing assessment click start attempt
             asAdapter = new AssessmentAdapter(assessments,getActivity(),new AssessmentClick(){
                 @Override
                 public void clickAssessment(Assessment assessment) {
+                    Log.d("click","h");
                     ((SPMSActivity)getActivity()).getSwal().confirm("Start Attempt?", "",
                             new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
@@ -109,19 +113,25 @@ public class AssessmentList extends Fragment {
                                         JSONObject reqBody = new JSONObject();
                                         reqBody.put("assessmentId",  assessment.getAssessmentId());
                                         SPMSRequest startAssessment = new SPMSRequest(((SPMSActivity) getActivity()).getToken(), Request.Method.POST,
-                                                "assessment/startAttempt",
+                                                "api/assessment/startAttempt",
                                                reqBody
                                                 , new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
                                                 loader.dismiss();
                                                 Log.d("Started",assessment.getTitle());
+                                                Intent stAs = new Intent(getActivity(), AssessmentAttempt.class);
+                                                stAs.putExtra("token",((SPMSActivity)getActivity()).getToken());
+                                                stAs.putExtra("assessment",assessment);
+                                                startActivity(stAs);
+
                                             }
                                         }, new Response.ErrorListener() {
                                             @Override
                                             public void onErrorResponse(VolleyError error) {
                                                 loader.dismiss();
                                                 ((SPMSActivity)getActivity()).getSwal().showError("Failed to Start","Unable to start assessment your allowed attempt time might have ended");
+
                                             }
                                         });
                                         ((SPMSActivity)getActivity()).getReqQueue().add(startAssessment);
@@ -131,6 +141,46 @@ public class AssessmentList extends Fragment {
                                     }
                                 }
                             });
+                }
+            });
+        }
+        else if(statusCode == 2){//past click dialog result
+            asAdapter = new AssessmentAdapter(assessments, getActivity(), new AssessmentClick() {
+                @Override
+                public void clickAssessment(Assessment assessment) {
+                    SPMSRequest reqmark = new SPMSRequest(jwt, Request.Method.GET, "api/assessment/sumMark?asid=" + assessment.getAssessmentId(), new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("Succ","r:" +response);
+                            try {
+                                JSONObject res = new JSONObject(response);
+                                String grade = "ungraded";
+                                double tmark = res.getDouble("totalMark");
+                                double fmark = res.getDouble("fullMark");
+                                if(res.has("grading")){
+                                    if(!res.isNull("grading")){
+                                        double percent = tmark / fmark * 100;
+                                        JSONArray grading = res.getJSONArray("grading");
+                                        for(int i=0 ; i < grading.length();i++){
+                                            if(percent >= grading.getJSONObject(i).getDouble("start") && percent <= grading.getJSONObject(i).getDouble("end")){
+                                                grade = grading.getJSONObject(i).getString("label");
+                                            }
+                                        }
+                                    }
+                                }
+                                ((SPMSActivity)getActivity()).getSwal().showMessage(assessment.getTitle(),"Mark: "+tmark+"/"+
+                                        fmark+" ["+grade+"]");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            ((SPMSActivity)getActivity()).getSwal().showError("Error","Unable to load assessment details");
+                        }
+                    });
+                    ((SPMSActivity)getActivity()).getReqQueue().add(reqmark);
                 }
             });
         }

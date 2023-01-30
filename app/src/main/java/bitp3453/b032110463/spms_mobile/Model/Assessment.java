@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -60,10 +61,12 @@ public class Assessment implements Serializable {
         if(jsonObj.has("subjTitle")){
             setSubjectTitle(jsonObj.getString("subjTitle"));
         }
-//      should do but later kot, taknak ada exception kat constructor kinda hard to use
-//        if(jsonObj.has("grading") && !jsonObj.isNull("grading")){
-//            String unwrappedJSON = new ObjectMapper().readValue(jsonObj.getString("grading"), String.class);
-//            setGrading( new JSONObject(jsonObj.getString("grading"))   );
+//        if(jsonObj.has("grading")){
+//            if(!jsonObj.isNull("grading")){
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                String unwrapJson = objectMapper.readValue(jsonObj.getString("grading"),String.class);
+//                Log.d("unra","json" + unwrapJson);
+//            }
 //        }
     }
 

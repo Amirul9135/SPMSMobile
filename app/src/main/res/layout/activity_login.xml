@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fitsSystemWindows="true"
-    tools:context=".Login">
+    tools:context=".Login"
+    android:background="@drawable/background">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vh1"
         android:layout_width="wrap_content"
@@ -40,17 +41,26 @@
         app:layout_constraintStart_toStartOf="@id/vw1"
         app:layout_constraintEnd_toEndOf="@id/vw2"
         app:layout_constraintTop_toTopOf="@id/vh1"
-        app:layout_constraintBottom_toBottomOf="@id/vh2">
+        app:layout_constraintBottom_toBottomOf="@id/vh2"
+        android:background="#80000000"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_launcher_background" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="10dp" />
 
             <EditText
                 android:id="@+id/edtAccId"
@@ -89,5 +99,7 @@
     <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/frgSwal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout="@layout/empty"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

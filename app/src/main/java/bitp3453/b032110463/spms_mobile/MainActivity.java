@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements SPMSActivity {
         setContentView(binding.getRoot());
 
         jwt = (JWT) getIntent().getSerializableExtra("token");
-        Log.d("token","TT>"+jwt.getToken());
-        Log.d("token","TTT>"+jwt.getJwtToken());
-        Log.d("token","TP>"+jwt.getJwtPayload());
-        Log.d("token","uid>"+jwt.getUserId());
+//        Log.d("token","TT>"+jwt.getToken());
+//        Log.d("token","TTT>"+jwt.getJwtToken());
+//        Log.d("token","TP>"+jwt.getJwtPayload());
+//        Log.d("token","uid>"+jwt.getUserId());
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements SPMSActivity {
                         frm.beginTransaction().replace(binding.mainContent.getId(),pastList).commit();
                         break;
                     case R.id.nav_logout:
-                        SPMSRequest logoutReq = new SPMSRequest(jwt, Request.Method.GET, "account/logout", new Response.Listener<String>() {
+                        SPMSRequest logoutReq = new SPMSRequest(jwt, Request.Method.GET, "api/account/logout", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Logout();

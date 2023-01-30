@@ -22,11 +22,18 @@ public class SweetAlert extends Fragment {
         return fragment;
     }
 
-    public void showError(String title, String message){
-        new SweetAlertDialog(this.getActivity(), SweetAlertDialog.ERROR_TYPE)
+    private void show(String title,String message, int type){
+        new SweetAlertDialog(this.getActivity(), type)
                 .setTitleText(title)
                 .setContentText(message)
                 .show();
+
+    }
+    public void showMessage(String title,String message){
+        show(title,message,SweetAlertDialog.NORMAL_TYPE);
+    }
+    public void showError(String title, String message){
+        show(title,message,SweetAlertDialog.ERROR_TYPE);
     }
     public void confirm(String title, String message , SweetAlertDialog.OnSweetClickListener action){
         new SweetAlertDialog(this.getActivity(), SweetAlertDialog.WARNING_TYPE)

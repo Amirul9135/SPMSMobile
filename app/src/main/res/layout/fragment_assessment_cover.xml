@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.AssessmentCover">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vw5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vw1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vw9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <TextView
+            android:id="@+id/lblSubj"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Subject"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/as_title_separator" />
+
+        <Button
+            android:id="@+id/btngtq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Go to Question"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEndAttempt"
+            />
+
+        <TextView
+            android:id="@+id/txtSubj"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="test(CODE)"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/as_title_separator" />
+        <TextView
+            android:id="@+id/lblOpen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Open Time:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/asTimeSeparator" />
+        <TextView
+            android:id="@+id/lblclose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Close Time:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/asTimeSeparator" />
+        <TextView
+            android:id="@+id/txtOpen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=" open dt"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/lblOpen" />
+        <TextView
+            android:id="@+id/txtClose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=" close dt"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/lblclose" />
+        <TextView
+            android:id="@+id/lblDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Duration(minutes):"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/txtOpen" />
+        <TextView
+            android:id="@+id/txtDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="duration"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/lblDuration" />
+        <TextView
+            android:id="@+id/lblCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Question Count:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/txtClose" />
+        <TextView
+            android:id="@+id/txtCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="duration"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/lblCount" />
+
+        <TextView
+            android:id="@+id/as_title"
+            android:layout_width="0dp"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/button_text_color"
+            android:background="@color/design_default_color_primary"
+            android:textSize="24sp"
+            android:text="title" />
+
+        <View
+            android:id="@+id/as_attempt_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCount" />
+
+        <TextView
+            android:id="@+id/lblAttempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Your Attempt"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/as_attempt_separator" />
+        <TextView
+            android:id="@+id/lblStartAtempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Started on:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/lblAttempt" />
+        <TextView
+            android:id="@+id/lblEndAttempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="End:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/lblAttempt" />
+        <TextView
+            android:id="@+id/txtStartAtempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=" open dt"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/vw5"
+            app:layout_constraintStart_toEndOf="@id/vw1"
+            app:layout_constraintTop_toBottomOf="@+id/lblStartAtempt" />
+        <TextView
+            android:id="@+id/txtEndAttempt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=" close dt"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/vw9"
+            app:layout_constraintStart_toEndOf="@id/vw5"
+            app:layout_constraintTop_toBottomOf="@+id/lblEndAttempt" />
+
+        <View
+            android:id="@+id/as_title_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/as_title" />
+        <View
+            android:id="@+id/asTimeSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSubj" />
+        <View
+            android:id="@+id/asDuraSperator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lblDuration" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +58,7 @@ public class Login extends AppCompatActivity {
                 getToken(binding.edtAccId.getText().toString(),binding.edtPass.getText().toString());
             }
         });
+        Glide.with(this).load(SPMSRequest.serverUrl +"res/images/spms.png").into(binding.imageView);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class Login extends AppCompatActivity {
         Log.d("ver","verify s");
         LoadingOverlay loader = new LoadingOverlay(this);
         loader.show();
-        SPMSRequest verification = new SPMSRequest(token, Request.Method.GET, "account/verify", new Response.Listener<String>() {
+        SPMSRequest verification = new SPMSRequest(token, Request.Method.GET, "api/account/verify", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Verification","succ");
@@ -139,7 +141,7 @@ public class Login extends AppCompatActivity {
 
         LoadingOverlay loader = new LoadingOverlay(this);
         loader.show();
-        StringRequest jsonReq = new StringRequest(Request.Method.POST, SPMSRequest.serverUrl + "account/login" ,
+        StringRequest jsonReq = new StringRequest(Request.Method.POST, SPMSRequest.serverUrl + "api/account/login" ,
                 null,
                 new Response.ErrorListener() {
                     @Override

@@ -19,7 +19,7 @@ import java.util.Map;
 import bitp3453.b032110463.spms_mobile.Model.JWT;
 
 public class SPMSRequest extends StringRequest {
-    public static String serverUrl = "http://192.168.8.102:5000/api/";
+    public static String serverUrl = "http://192.168.8.102:5000/";
     private JWT jwt;
     private JSONObject body;
 
